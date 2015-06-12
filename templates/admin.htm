@@ -1,0 +1,21 @@
+<div id='index' style="margin: 10em" ng-controller="AdminController">
+    <div class="row">
+        
+        <div class="col-md-4 col-md-offset-4" >
+		   <h3>Admin Login</h3>
+           <form ng-submit="authCtrl.login()">
+			  <div class="input-group">
+				<input type="email" class="form-control" placeholder="Email" ng-model="authCtrl.user.email">
+			  </div>
+			  <div class="input-group">
+				<input type="password" class="form-control" placeholder="Password" ng-model="authCtrl.user.password">
+			  </div>
+			  <input type="submit" class="btn btn-success" value="Log In">
+			</form>
+           <div ng-show="authCtrl.error">
+			  <span>{{ authCtrl.error.message }}</span>
+			</div>
+        </div>
+		
+    </div>
+</div>

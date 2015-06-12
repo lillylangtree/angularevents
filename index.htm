@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="css/theme.css" rel="stylesheet"></link>
+	<link href="css/app.css" rel="stylesheet"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.5/firebase.js'></script>
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>	
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+	
+	<style>	
+		 
+		 #map_canvas {               
+				float: left;                
+            }
+		.navbar-menu > li > span, .navbar-menu > li > button   { margin-top: 10px }
+	</style>
+</head>
+
+<body ng-app="eventapp">
+
+<header >
+	
+	<nav  ng-hide="hidenav" class="navbar navbar-default navbar-fixed-top role='navigation' " ng-controller="LoginController">
+		<div class="container">
+		<div class="navbar-header" >
+			<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a xref="/" class="navbar-brand " style='margin-top: 6px;margin-left: 0.5em;margin-right:0.5em;'>Eventing</a>
+		</div>
+		<!-- Collection of nav links and other content for toggling -->
+		<div id="navbarCollapse" class="collapse navbar-collapse" >
+		    <ul id="w4" class="navbar-menu nav navbar-right">				
+				<li ng-if="!isAdmin" class="navbar-right">					  
+				  <button class="btn btn-primary" ng-click="loginFacebook()"  ng-if="!loggedIn" >
+					 Facebook Login</button>
+				</li>
+				<li class="navbar-right">
+				  <a class="navbar-brand " ng-if="loggedIn" xref="/viewEvents/subscribed"><button class="btn btn-primary">My Events</button></a>
+				  <span  class="navbar-brand" ng-if="loggedIn" >Logged In As: {{credentials.name}}</span>			
+				</li>
+				<li ng-if="isAdmin" class="navbar-right">
+				  <span  class="navbar-brand" > Logged in As: Admin</span>	
+				</li>
+				<li  class="navbar-right">
+					<a class="navbar-brand " xref="/viewEvents" >
+					<button class="btn btn-primary" type='button'>Browse Events</button></a>		 		 
+				</li>
+			</ul>
+		</div>
+	</nav>
+	</header>
+	<div>
+		<div  ng-class="myVar" ng-view ng-cloak style='margin-top: 10em'></div>
+    </div>
+
+
+<script src="app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
+<script src="js/directives.js"></script>
+</body>
+</html>

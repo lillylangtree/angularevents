@@ -1,0 +1,95 @@
+<div ng-controller="EventController" >
+	<div ng-hide='new' style='margin-left: 3em; margin-right: 3em'>
+	<h3>Events</h3>
+		
+	<event-list></event-list>
+  
+	<button class="btn btn-success" ng-click="newEvent()" ng-if="isAdmin">
+	<span class="glyphicon glyphicon-user"></span>Create New Event
+	</button>
+  
+  </div>
+  <div ng-show='new' style='margin-left: 3em'>
+		<div ng-switch on="selection">
+			<div ng-switch-when="new">
+				<h3 ng-hide='show' >Create New Event:</h3>
+			</div>
+			<div ng-switch-when="details">
+				<h3 ng-show='show' >Event Details:</h3>
+				<div ng-controller='MapController'>
+					<div ng-if='show' id="map_canvas" >
+						<img src="http://maps.googleapis.com/maps/api/staticmap?center={{location}}&zoom={{zoom}}&scale=false&size=400x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:A%7C{{location}}" alt="Google Map of {{location}}">			
+						<div> 
+							<div style='padding-top: 3px;'>
+								<button class="btn btn-success" ng-click="zoomIn()">
+								<span class="glyphicon glyphicon-plus"></span>  Zoom In</button>
+								<button class="btn btn-danger" ng-click="zoomOut()">
+								<span class="glyphicon glyphicon-minus"></span>  Zoom Out</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-switch-when="edit" ng-if="isAdmin">
+				<h3 ng-hide='show' >Edit Event Details:</h3>
+			</div>
+		</div>
+	<div>	
+		<form name='eventForm' class="form-horizontal" style='float: left; padding-left: 3em;width: 45%'>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Start Date</label>
+				<div class="col-md-10">
+				<input type="date" style='max-width: 40%' class="form-control" ng-disabled="show" name="startDate" ng-model="myForm.startdate" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">End Date</label>
+				<div class="col-md-10">
+				<input type="date" style='max-width: 40%' class="form-control" ng-disabled="show" name="endDate"  ng-model="myForm.enddate" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Title </label>
+				<div class="col-md-10">
+				<input type="text" style='max-width: 60%' class="form-control" ng-disabled="show" name="title"  ng-model="myForm.title" required> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Description</label>
+				<div class="col-md-10">
+						<textarea rows=5 style='max-width: 60%' class="form-control" ng-disabled="show" name="description"  ng-model="myForm.description" required></textarea>  <br/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Location</label>
+				<div class="col-md-10">
+				<input style='max-width: 60%' type="text" class="form-control" ng-disabled="show" name="location"  ng-model="myForm.location" required>
+				</div>
+			</div>
+			<div ng-switch on="selection">
+				<div ng-switch-when="new">
+				<button ng-hide='show' class="btn btn-danger" ng-click="allEvents()">
+				<span class="glyphicon glyphicon-chevron-left"></span>  Back</button>
+
+				<button ng-hide='show' class="btn btn-success" ng-click="submitTheForm()">
+				<span class="glyphicon glyphicon-save"></span>Save Event</button>
+				</div>
+				<div ng-switch-when="details">
+					<button ng-show='show' class="btn btn-success" ng-click="allEvents()">
+					<span class="glyphicon glyphicon-chevron-left"></span>  Events List</button>
+					<button ng-show='show' ng-if='!myform.subscribed&&loggedIn' class="btn btn-danger" ng-click="subscribeEvent(myForm)">
+					<span class="glyphicon glyphicon-plus-sign"></span>  Subscribe Event</button>
+					<button ng-show='show' ng-if='myform.subscribed&&loggedIn' class="btn btn-danger" ng-click="unSubscribeEvent(myForm)">
+					<span class="glyphicon glyphicon-minus-sign"></span>  Unsubscribe Event</button>
+					</div>
+				<div ng-switch-when="edit">
+					<button ng-hide='show' class="btn btn-danger" ng-click="allEvents()">
+					<span class="glyphicon glyphicon-chevron-left"></span>  Back</button>
+					<button ng-hide='show' class="btn btn-success" ng-click="updateEvent(myForm)">
+					<span class="glyphicon glyphicon-edit"></span>  UpdateEvent</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+<table class="table table-bordered" style='background-color: ivory'>
+		<thead>
+		<tr>
+		  
+		  <th>Date</th>
+		  <th>Title</th>
+		  <th>Location</th>
+		  <th></th>
+
+		</tr>
+	  </thead>
+	  <tbody>
+	  <tr ng-repeat="event in events">
+		
+		<td data-title="'Start Date'">{{event.startdate}}</td>		
+		<td data-title="'Title'">{{event.title}}</td>			
+		<td data-title="'Location'">{{event.location}}</td>
+		<td ng-if="isAdmin">
+			<button class="btn" ng-click="editEvent(event)">
+			  <span class="glyphicon glyphicon-pencil"></span>Edit
+			</button>
+		</td>
+		<td ng-if="isAdmin">
+			<button class="btn" ng-click="deleteEvent(event)">
+			  <span class="glyphicon glyphicon-remove"></span>Delete
+			</button>
+		</td>
+		<td>
+			<button class="btn" ng-click="detailsEvent(event)">
+			  Details
+			</button>
+		</td>
+		<td ng-if="!isAdmin&&loggedIn">
+			<button ng-if="event.subscribed" class="btn btn-success" ng-click="unSubscribeEvent(event)">
+			  <span class="glyphicon glyphicon-minus-sign"></span> Unsubscribe
+			</button>
+			<button ng-if="!event.subscribed" class="btn btn-success" ng-click="subscribeEvent(event)">
+			  <span class="glyphicon glyphicon-plus-sign"></span> Subscribe
+			</button>
+		</td>
+	</tr>
+   </tbody>
+  </table>
